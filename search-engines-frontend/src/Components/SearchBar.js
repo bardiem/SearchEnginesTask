@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 
 const SearchBar = ({onSearch, searchEngines}) => {
     const [searchQuery, setSearchQuery] = useState('')
-    const [searchEngine, setSearchEngine] = useState(searchEngines[0])
+    const [searchEngine, setSearchEngine] = useState(searchEngines[0].engineName)
 
     return (
         <div className="row">

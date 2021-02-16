@@ -1,5 +1,8 @@
 import SearchGoogle from './SearchGoogle'
 import SearchLocal from './SearchLocal'
+import SearchNewsApi from './SearchNewsApi'
+import SearchSocialSearcher from './SearchSocialSearcher'
+
 
 class SearchProvider{
     searchEngines
@@ -7,7 +10,9 @@ class SearchProvider{
     constructor(){
         let googleEngine = new SearchGoogle()
         let searchLocal = new SearchLocal()
-        this.searchEngines = [googleEngine, searchLocal]
+        let searchNewsApi = new SearchNewsApi()
+        let searchSocial = new SearchSocialSearcher()
+        this.searchEngines = [googleEngine, searchNewsApi, searchSocial, searchLocal]
     }
 
 

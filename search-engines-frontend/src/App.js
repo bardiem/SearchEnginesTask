@@ -7,25 +7,17 @@ import SearchCacheService from './Services/SearchCacheService'
 
 
 function App() {
-  let [searchResults, setSearchResults] = useState([{
-        title: "youtube.com1",
-        link: "https://youtube.comye.com",
-        displayLink: "youtube.com",
-        snippet: "hello this is snippet"
-    },
-    {
-        title: "facebook.com",
-        link: "https://youtube.comyoutube.com",
-        displayLink: "youtube.com",
-        snippet: "hello this is snippet"
-    }]);
+  let [searchResults, setSearchResults] = useState([]);
   const searchProvider = new SearchProvider()
   const searchCacheService = new SearchCacheService()
 
 
   const onSearch = async (searchQuery, searchEngine) => {
-    //const data = await searchProvider.getQueryResult(searchQuery, "google")
-    const data = searchProvider.getQueryResult(searchQuery, searchEngine)
+    if(searchQuery===undefined || searchQuery===null || searchQuery.length==0)
+      return;
+      
+    let data = await searchProvider.getQueryResult(searchQuery, searchEngine)
+    data = data.slice(0, 10)
     
     setSearchResults(data)
     searchCacheService.postSearchResults(data)
