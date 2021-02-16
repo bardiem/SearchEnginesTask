@@ -29,7 +29,7 @@ namespace SearchEnginesTask
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SearchDBContext>(options => options.UseSqlServer(connection));
 
-            services.AddScoped<ISearchResultRepository, SearchResultRepository();
+            services.AddScoped<ISearchResultRepository>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SearchEnginesTask.Models;
 using SearchEnginesTask.Repository;
 using SearchEnginesTask.Services; 
@@ -34,16 +34,18 @@ namespace SearchEnginesTask.Controllers
         public async Task<ActionResult<IEnumerable<SearchResult>>> GetSearchResults(string query) 
         {
             var keyPhrases = _localSearchService.GetKeyPhracesFromQuery(query);
-            
+            var foundResults = _searchRepository.Get(keyPhrases);
+            return Ok(foundResults);
         }
 
 
         [HttpPost]
-        public ActionResult<SearchResult> PostSearchResult([FromBody] IEnumerable<SearchResult> searchResult)
+        public ActionResult<SearchResult> PostSearchResult([FromBody] IEnumerable<SearchResult> searchResults)
         {
             try
             {
-                _searchRepository.CreateMany(searchResult);
+                object p = searchResults.Select(e=> e.KeyPhrases = e.).;
+                _searchRepository.CreateMany(searchResults);
             }
             catch (Exception) 
             {

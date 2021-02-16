@@ -1,7 +1,7 @@
 ﻿using SearchEnginesTask.Models;
 using System.Collections.Generic;
 using System.Linq;
-using SearchEnginesTask.Models;
+
 
 namespace SearchEnginesTask.Services
 {
@@ -15,16 +15,38 @@ namespace SearchEnginesTask.Services
             _localSearchService = localSearchService;
         }
 
-        public IEnumerable<SearchResult> SearchCachedData(IEnumerable<string> keyPhrases)
+        public IEnumerable<string> GetKeyPhracesFromQuery(string query)
         {
-            var result = _dbContext.SearchResults
-                .Select(r=> new 
-                { 
-                    Id=r.Id,
-                    Title = r.Title.Split(" ")l
-                })
-                .Where(r => r.Title.Split(" ").ToList().Any(w => keyPhrases.ToList().Contains(w));
-            });
+            var keyWords = new List<string>();
+            var queryWords = query.Split(" ");
+            for (int i = 0; i < queryWords.Length; i++)
+            {
+                if (queryWords[i].Length > 2)
+                {
+                    keyWords.Add(queryWords[i]);
+                }
+                else
+                {
+                    keyWords.Add(GetPrevWord(i, queryWords));
+                    keyWords.Add(GetNextWord(i, queryWords));
+                }
+            }
+            var filteredKeyWords = keyWords.Where(item => item != "").ToList();
+            return filteredKeyWords;
+        }
+
+        private static string GetPrevWord(int index, string[] array)
+        {
+            if (index == 0)
+                return string.Empty;
+            return array[index - 1] + " " + array[index];
+        }
+
+        private static string GetNextWord(int index, string[] array)
+        {
+            if (index == array.Count() - 1)
+                return string.Empty;
+            return array[index] + " " + array[index + 1];
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using SearchEnginesTask.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SearchEnginesTask.Repository
 {
@@ -41,9 +39,17 @@ namespace SearchEnginesTask.Repository
                 .FirstOrDefault();
         }
 
-        public IEnumerable<SearchResult> Get(string query)
+        public IEnumerable<SearchResult> Get(IEnumerable<string> keyPhrases)
         {
-            return 
+            //var result = _dbContext.SearchResults
+            //  .Select(r => new
+            //  {
+            //      Id = r.Id,
+            //      Title = r.Title.Split(' ')
+            //    })
+            //      .Where(r => r.Title.Split(" ").ToList().Any(w => keyPhrases.ToList().Contains(w));
+            //});
+            return new List<SearchResult>();
         }
 
         

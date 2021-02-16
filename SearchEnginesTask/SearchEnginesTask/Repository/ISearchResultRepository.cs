@@ -9,7 +9,7 @@ namespace SearchEnginesTask.Repository
         void CreateMany(IEnumerable<SearchResult> searchResults);
         void Delete(long id);
         SearchResult Get(long id);
-        IEnumerable<SearchResult> Get(string query);
+        IEnumerable<SearchResult> Get(IEnumerable<string> keyPhrases);
 
     }
 }
