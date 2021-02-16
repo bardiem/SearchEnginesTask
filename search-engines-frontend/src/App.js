@@ -4,6 +4,7 @@ import Sidebar from './Components/Sidebar';
 import Main from './Components/Main';
 import {useState} from 'react';
 import SearchProvider from './Services/SearchProvider'
+import SearchCacheService from './Services/SearchCacheService'
 import SearchResult from './Components/SearchResult';
 
 function App() {
@@ -19,13 +20,16 @@ function App() {
         displayLink: "youtube.com",
         snippet: "hello this is snippet"
     }]);
-  let searchProvider = new SearchProvider()
+  const searchProvider = new SearchProvider()
+  const searchCacheService = new SearchCacheService()
 
 
   const onSearch = async (searchQuery) => {
-    const data = await searchProvider.getQueryResult(searchQuery, "google")
-    //const data = searchProvider.getQueryResult(searchQuery, "mock")
+    //const data = await searchProvider.getQueryResult(searchQuery, "google")
+    const data = searchProvider.getQueryResult(searchQuery, "mock")
+    
     setSearchResults(data)
+    searchCacheService.postSearchResults(data)
   }
 
   return (
