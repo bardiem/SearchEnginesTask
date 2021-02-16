@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SearchEnginesTask.Models;
 using SearchEnginesTask.Repository;
-
+using SearchEnginesTask.Services;
 
 namespace SearchEnginesTask
 {
@@ -27,9 +27,11 @@ namespace SearchEnginesTask
             services.AddCors();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<SearchDBContext>(options => options.UseSqlServer(connection));
+            var db = services.AddDbContext<SearchDBContext>(options => options.UseSqlServer(connection));
 
-            services.AddScoped<ISearchResultRepository>();
+            services.AddScoped<IKeyPhraseRepository, KeyPhraseRepository>();
+            services.AddScoped<ILocalSearchEngineService, LocalSearchEngineService>();
+            services.AddScoped<ISearchResultRepository, SearchResultRepository>();
 
             services.AddSwaggerGen(c =>
             {

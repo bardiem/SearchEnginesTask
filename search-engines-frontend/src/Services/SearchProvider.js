@@ -1,13 +1,13 @@
 import SearchGoogle from './SearchGoogle'
-import SearchMock from './SearchMock'
+import SearchLocal from './SearchLocal'
 
 class SearchProvider{
     searchEngines
 
     constructor(){
         let googleEngine = new SearchGoogle()
-        let searchMock = new SearchMock()
-        this.searchEngines = [googleEngine, searchMock]
+        let searchLocal = new SearchLocal()
+        this.searchEngines = [googleEngine, searchLocal]
     }
 
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace SearchEnginesTask.Repository
 {
-    interface IKeyPhraseRepository
+    public interface IKeyPhraseRepository
     {
         bool Create(KeyPhrase keyPhrase);
-        void CreateMany(IEnumerable<KeyPhrase> keyPhrases);
+        IEnumerable<KeyPhrase> CreateMany(IEnumerable<string> keyPhrases);
+        IEnumerable<KeyPhrase> CreateMany(IEnumerable<KeyPhrase> keyPhrases);
         void Delete(long id);
         KeyPhrase Get(long id);
         KeyPhrase Get(string phrase);

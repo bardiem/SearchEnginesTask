@@ -11,7 +11,7 @@ namespace SearchEnginesTask.Models
             Database.EnsureCreated();
         }
 
-        public SearchDBContext(DbContextOptions<SearchDBContext> options): base(options)
+        public SearchDBContext(DbContextOptions<SearchDBContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
@@ -20,6 +20,8 @@ namespace SearchEnginesTask.Models
         public virtual DbSet<PhrasesOfResult> PhrasesOfResults { get; set; }
         public virtual DbSet<SearchResult> SearchResults { get; set; }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Ukrainian_CI_AS");
@@ -27,13 +29,13 @@ namespace SearchEnginesTask.Models
             modelBuilder.Entity<PhrasesOfResult>(entity =>
             {
                 entity.HasOne(d => d.Phrase)
-                    .WithMany()
+                    .WithMany(p => p.PhrasesOfResults)
                     .HasForeignKey(d => d.PhraseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhrasesOfResults_KeyPhrases");
 
                 entity.HasOne(d => d.Result)
-                    .WithMany()
+                    .WithMany(p => p.PhrasesOfResults)
                     .HasForeignKey(d => d.ResultId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PhrasesOfResults_SearchResults");

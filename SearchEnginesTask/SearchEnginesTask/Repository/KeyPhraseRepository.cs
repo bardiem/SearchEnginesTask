@@ -16,16 +16,46 @@ namespace SearchEnginesTask.Repository
             _dbContext = dbContext;
         }
 
-        public bool Create(KeyPhrase keyPhrase)
+        private KeyPhrase CreateWithoutDuplicates(KeyPhrase keyPhrase)
         {
-            var result = _dbContext.KeyPhrases.Add(keyPhrase);
-            _dbContext.SaveChanges();
-            return result != null;
+            try
+            {
+                var phrase = Get(keyPhrase.Phrase);
+                if (phrase != null)
+                    return phrase;
+                var createdPhrase = _dbContext.Add(keyPhrase);
+                _dbContext.SaveChanges();
+                return createdPhrase.Entity;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
-        public void CreateMany(IEnumerable<KeyPhrase> keyPhrases)
+        public bool Create(KeyPhrase keyPhrase)
         {
-            throw new NotImplementedException();
+            return CreateWithoutDuplicates(keyPhrase) != null;
+        }
+
+        public IEnumerable<KeyPhrase> CreateMany(IEnumerable<string> keyPhrases)
+        {
+            var newPhrases = keyPhrases.Select(k => new KeyPhrase { Phrase = k });
+            return CreateMany(newPhrases);
+        }
+
+        public IEnumerable<KeyPhrase> CreateMany(IEnumerable<KeyPhrase> keyPhrases)
+        {
+            var createdRecords = new List<KeyPhrase>();
+            foreach(var phrase in keyPhrases)
+            {
+                var createdRecord = CreateWithoutDuplicates(phrase);
+                if (createdRecord != null)
+                    createdRecords.Add(createdRecord);
+            }
+
+            return createdRecords;
         }
 
         public void Delete(long id)
@@ -41,7 +71,9 @@ namespace SearchEnginesTask.Repository
 
         public KeyPhrase Get(string phrase)
         {
-            return _dbContext.KeyPhrases.Where(k => k.Phrase == phrase).FirstOrDefault();
+            return _dbContext.KeyPhrases
+                .Where(k => k.Phrase == phrase)
+                .FirstOrDefault();
         }
     }
 }

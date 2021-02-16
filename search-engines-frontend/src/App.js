@@ -9,7 +9,7 @@ import SearchCacheService from './Services/SearchCacheService'
 function App() {
   let [searchResults, setSearchResults] = useState([{
         title: "youtube.com1",
-        link: "https://youtube.comyoutube.com",
+        link: "https://youtube.comye.com",
         displayLink: "youtube.com",
         snippet: "hello this is snippet"
     },
@@ -23,7 +23,7 @@ function App() {
   const searchCacheService = new SearchCacheService()
 
 
-  const onSearch = async (searchQuery, searchEngine, isInternetSearch) => {
+  const onSearch = async (searchQuery, searchEngine) => {
     //const data = await searchProvider.getQueryResult(searchQuery, "google")
     const data = searchProvider.getQueryResult(searchQuery, searchEngine)
     

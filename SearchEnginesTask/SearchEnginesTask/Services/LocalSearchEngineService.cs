@@ -7,15 +7,8 @@ namespace SearchEnginesTask.Services
 {
     public class LocalSearchEngineService : ILocalSearchEngineService
     {
-        private readonly SearchDBContext _dbContext;
-        private readonly ILocalSearchEngineService _localSearchService;
-        
-        public LocalSearchEngineService(ILocalSearchEngineService localSearchService)
-        {
-            _localSearchService = localSearchService;
-        }
 
-        public IEnumerable<string> GetKeyPhracesFromQuery(string query)
+        public IEnumerable<string> GetKeyPhrasesFromQuery(string query)
         {
             var keyWords = new List<string>();
             var queryWords = query.Split(" ");

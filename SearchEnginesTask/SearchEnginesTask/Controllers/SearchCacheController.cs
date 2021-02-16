@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SearchEnginesTask.Models;
 using SearchEnginesTask.Repository;
-using SearchEnginesTask.Services; 
+using SearchEnginesTask.Services;
 
 
 namespace SearchEnginesTask.Controllers
@@ -31,9 +29,9 @@ namespace SearchEnginesTask.Controllers
 
 
         [HttpGet("{query}")]
-        public async Task<ActionResult<IEnumerable<SearchResult>>> GetSearchResults(string query) 
+        public ActionResult<IEnumerable<SearchResult>> GetSearchResults(string query) 
         {
-            var keyPhrases = _localSearchService.GetKeyPhracesFromQuery(query);
+            var keyPhrases = _localSearchService.GetKeyPhrasesFromQuery(query);
             var foundResults = _searchRepository.Get(keyPhrases);
             return Ok(foundResults);
         }
@@ -44,10 +42,9 @@ namespace SearchEnginesTask.Controllers
         {
             try
             {
-                //object p = searchResults.Select(e=> e.KeyPhrases = e.).;
                 _searchRepository.CreateMany(searchResults);
             }
-            catch (Exception) 
+            catch (Exception e) 
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }

@@ -5,6 +5,6 @@ namespace SearchEnginesTask.Services
 {
     public interface ILocalSearchEngineService
     {
-        IEnumerable<string> GetKeyPhracesFromQuery(string query);
+        IEnumerable<string> GetKeyPhrasesFromQuery(string query);
     }
 }
