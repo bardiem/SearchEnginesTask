@@ -1,10 +1,10 @@
 import React from 'react'
 import SearchBar from './SearchBar'
 
-const Header = ({onSearch}) => {
+const Header = ({onSearch, searchEngines}) => {
     return (
         <header className="col-12">
-            <SearchBar onSearch={onSearch}/>
+            <SearchBar onSearch={onSearch} searchEngines={searchEngines}/>
         </header>
     )
 }

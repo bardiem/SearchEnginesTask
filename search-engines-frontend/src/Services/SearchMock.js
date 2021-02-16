@@ -1,7 +1,7 @@
 import { getDefaultNormalizer } from "@testing-library/react";
 
 class SearchMock{
-    engineName = "mock"
+    engineName = "Mock"
     
 
     getSearchResults = (query) =>{

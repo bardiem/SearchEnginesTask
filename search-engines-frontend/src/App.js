@@ -1,11 +1,10 @@
 import './App.css';
 import Header from './Components/Header';
-import Sidebar from './Components/Sidebar';
 import Main from './Components/Main';
 import {useState} from 'react';
 import SearchProvider from './Services/SearchProvider'
 import SearchCacheService from './Services/SearchCacheService'
-import SearchResult from './Components/SearchResult';
+
 
 function App() {
   let [searchResults, setSearchResults] = useState([{
@@ -24,9 +23,9 @@ function App() {
   const searchCacheService = new SearchCacheService()
 
 
-  const onSearch = async (searchQuery) => {
+  const onSearch = async (searchQuery, searchEngine, isInternetSearch) => {
     //const data = await searchProvider.getQueryResult(searchQuery, "google")
-    const data = searchProvider.getQueryResult(searchQuery, "mock")
+    const data = searchProvider.getQueryResult(searchQuery, searchEngine)
     
     setSearchResults(data)
     searchCacheService.postSearchResults(data)
@@ -35,9 +34,8 @@ function App() {
   return (
     <div className="container">
       <div className="row row-cols-2">
-        <Header onSearch={onSearch}/>
+        <Header onSearch={onSearch} searchEngines={searchProvider.searchEngines}/>
         <Main searchResults={searchResults}/>
-        <Sidebar />
       </div>
     </div>
   );
