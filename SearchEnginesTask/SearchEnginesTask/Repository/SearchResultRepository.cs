@@ -101,7 +101,7 @@ namespace SearchEnginesTask.Repository
         {
             var recordInDb = GetByLink(searchResult.Link);
             if (recordInDb == null)
-                throw new Exception(@"Record with this link doesn't exist");
+                throw new ArgumentException(@"Record with this link doesn't exist");
 
             recordInDb.DisplayLink = searchResult.DisplayLink;
             recordInDb.Snippet = searchResult.Snippet;

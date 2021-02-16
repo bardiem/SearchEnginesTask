@@ -10,7 +10,6 @@ namespace SearchEnginesTask.Repository
 
         private readonly SearchDBContext _dbContext;
 
-
         public KeyPhraseRepository(SearchDBContext dbContext)
         {
             _dbContext = dbContext;
