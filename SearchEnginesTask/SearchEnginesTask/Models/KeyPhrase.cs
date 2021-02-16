@@ -13,11 +13,5 @@ namespace SearchEnginesTask.Models
         [Column("phrase")]
         [StringLength(100)]
         public string Phrase { get; set; }
-        [Column("searchResultId")]
-        public long SearchResultId { get; set; }
-
-        [ForeignKey(nameof(SearchResultId))]
-        [InverseProperty("KeyPhrases")]
-        public virtual SearchResult SearchResult { get; set; }
     }
 }

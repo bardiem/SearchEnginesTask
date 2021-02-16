@@ -17,22 +17,26 @@ namespace SearchEnginesTask.Models
         }
 
         public virtual DbSet<KeyPhrase> KeyPhrases { get; set; }
+        public virtual DbSet<PhrasesOfResult> PhrasesOfResults { get; set; }
         public virtual DbSet<SearchResult> SearchResults { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Ukrainian_CI_AS");
 
-            modelBuilder.Entity<KeyPhrase>(entity =>
+            modelBuilder.Entity<PhrasesOfResult>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.HasOne(d => d.SearchResult)
-                    .WithMany(p => p.KeyPhrases)
-                    .HasForeignKey(d => d.SearchResultId)
+                entity.HasOne(d => d.Phrase)
+                    .WithMany()
+                    .HasForeignKey(d => d.PhraseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_KeyPhrases_SearchResults");
+                    .HasConstraintName("FK_PhrasesOfResults_KeyPhrases");
+
+                entity.HasOne(d => d.Result)
+                    .WithMany()
+                    .HasForeignKey(d => d.ResultId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PhrasesOfResults_SearchResults");
             });
 
             OnModelCreatingPartial(modelBuilder);

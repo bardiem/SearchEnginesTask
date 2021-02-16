@@ -44,7 +44,7 @@ namespace SearchEnginesTask.Controllers
         {
             try
             {
-                object p = searchResults.Select(e=> e.KeyPhrases = e.).;
+                //object p = searchResults.Select(e=> e.KeyPhrases = e.).;
                 _searchRepository.CreateMany(searchResults);
             }
             catch (Exception) 

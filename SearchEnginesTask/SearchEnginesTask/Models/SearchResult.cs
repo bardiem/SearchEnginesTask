@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -7,11 +6,6 @@ namespace SearchEnginesTask.Models
 {
     public partial class SearchResult
     {
-        public SearchResult()
-        {
-            KeyPhrases = new HashSet<KeyPhrase>();
-        }
-
         [Key]
         [Column("id")]
         public long Id { get; set; }
@@ -29,8 +23,5 @@ namespace SearchEnginesTask.Models
         [Required]
         [Column("snippet", TypeName = "text")]
         public string Snippet { get; set; }
-
-        [InverseProperty(nameof(KeyPhrase.SearchResult))]
-        public virtual ICollection<KeyPhrase> KeyPhrases { get; set; }
     }
 }
