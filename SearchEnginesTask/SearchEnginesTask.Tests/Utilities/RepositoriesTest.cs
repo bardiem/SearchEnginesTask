@@ -15,8 +15,9 @@ namespace SearchEnginesTask.Tests.Utilities
             using(var mock = AutoMock.GetLoose())
             {
                 mock.Mock<ISearchResultRepository>()
-                    .Setup(x=> x.Get(new[] {"youtube", "sign up"}))
-                    .Returns()
+                    .Setup(x => x.Get(new[] { "youtube", "sign up" }))
+                    .Returns(GetSearchResults());
+                
             }
         }
 
